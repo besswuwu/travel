@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>東京 8 天 7 夜行程 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap');
+
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --text: #1a1814;
+    --text-muted: #6b6760;
+    --text-light: #9e9b96;
+    --border: #e8e4dc;
+    --accent-green: #1D9E75;
+    --accent-green-light: #E1F5EE;
+    --accent-blue: #185FA5;
+    --accent-blue-light: #E6F1FB;
+    --accent-pink: #993556;
+    --accent-pink-light: #FBEAF0;
+    --accent-purple: #534AB7;
+    --accent-purple-light: #EEEDFE;
+    --accent-amber: #BA7517;
+    --accent-amber-light: #FAEEDA;
+    --accent-olive: #3B6D11;
+    --accent-olive-light: #EAF3DE;
+    --accent-red: #993C1D;
+    --accent-red-light: #FAECE7;
+    --accent-gray: #5F5E5A;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--text);
+    color: #f7f5f0;
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.02) 40px,
+      rgba(255,255,255,0.02) 41px
+    );
+  }
+  .header-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+  .header-sub {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(247,245,240,0.5);
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+  .header-dates {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: rgba(247,245,240,0.7);
+    border: 1px solid rgba(247,245,240,0.2);
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+  .header-dates span { opacity: 0.4; }
+
+  /* Flights */
+  .flights {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .flight-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .flight-tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .flight-route {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+  .flight-info { font-size: 12px; color: var(--text-muted); }
+
+  /* Hotels banner */
+  .hotels-bar {
+    max-width: 720px;
+    margin: 12px auto 0;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .hotel-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    border: 1px solid;
+  }
+  .hotel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .hotel-tag strong { font-weight: 500; }
+  .hotel-tag span { color: var(--text-muted); font-size: 11px; }
+
+  /* Day list */
+  .days { max-width: 720px; margin: 16px auto 40px; padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+
+  .day-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .day-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .day-header:hover { background: #faf8f4; }
+
+  .day-accent { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
+
+  .day-meta { flex: 1; }
+  .day-date { font-size: 11px; color: var(--text-light); margin-bottom: 1px; }
+  .day-title { font-size: 15px; font-weight: 500; }
+
+  .day-badges { display: flex; gap: 6px; align-items: center; }
+  .badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .chevron {
+    font-size: 14px;
+    color: var(--text-light);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .chevron.open { transform: rotate(90deg); }
+
+  /* Day body */
+  .day-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 14px 18px 16px;
+  }
+  .day-body.open { display: block; }
+
+  .spots { display: flex; flex-direction: column; gap: 6px; }
+
+  .spot {
+    display: flex;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .spot-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .spot-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .spot-time { font-size: 10px; color: var(--text-light); white-space: nowrap; }
+  .spot-content { flex: 1; }
+  .spot-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+  .spot-note { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  .tip {
+    margin-top: 10px;
+    padding: 9px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-left: 3px solid;
+    background: #faf8f4;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  /* Restaurant card */
+  .restaurant {
+    display: flex;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: #FFFBF0;
+    border: 1px solid #F0D080;
+    align-items: flex-start;
+    margin-top: 2px;
+  }
+  .restaurant-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .restaurant-icon { font-size: 14px; line-height: 1; }
+  .restaurant-time { font-size: 10px; color: var(--text-light); white-space: nowrap; }
+  .restaurant-content { flex: 1; }
+  .restaurant-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .restaurant-name a { color: #185FA5; text-decoration: none; font-size: 11px; font-weight: 400; }
+  .restaurant-name a:hover { text-decoration: underline; }
+  .restaurant-note { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .res-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .res-booked { background: #E1F5EE; color: #085041; }
+  .res-walkin { background: #FAEEDA; color: #633806; }
+  .res-pending { background: #EEEDFE; color: #3C3489; }
+  .res-hotel { background: #E6F1FB; color: #0C447C; }
+  .restaurant-payment {
+    font-size: 11px;
+    color: #534AB7;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* Section divider for hotel switch */
+  .hotel-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    border: 1px dashed;
+    margin: 4px 0 2px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 16px 40px;
+    font-size: 11px;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .footer strong { color: var(--text-muted); }
+
+  /* Reminders */
+  .reminders {
+    max-width: 720px;
+    margin: 0 auto 8px;
+    padding: 0 16px;
+  }
+  .reminders-title {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+  .reminders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px;
+  }
+  .reminder-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .reminder-item strong { display: block; font-weight: 500; margin-bottom: 2px; }
+  .reminder-item span { color: var(--text-muted); }
+
+  @media (max-width: 480px) {
+    .flights, .hotels-bar { grid-template-columns: 1fr; }
+    .day-badges { flex-wrap: wrap; }
+  }
+
+  @media print {
+    .day-body { display: block !important; }
+    .chevron { display: none; }
+    .day-header { cursor: default; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-sub">Travel Itinerary</div>
+    <h1>東京 8 天 7 夜</h1>
+    <div class="header-dates">
+      <span>IT280</span>
+      5/18（一）出發
+      <span>·</span>
+      5/25（一）返回
+      <span>IT281</span>
+    </div>
+  </div>
+</div>
+
+<div class="flights">
+  <div class="flight-card">
+    <div class="flight-tag">去程 IT280</div>
+    <div class="flight-route">KHH → NRT</div>
+    <div class="flight-info">5/18（一）08:05 → 12:40　Terminal 2</div>
+  </div>
+  <div class="flight-card">
+    <div class="flight-tag">回程 IT281</div>
+    <div class="flight-route">NRT → KHH</div>
+    <div class="flight-info">5/25（一）11:50 → 15:00　Terminal 2</div>
+  </div>
+</div>
+
+<div class="hotels-bar" style="grid-template-columns:1fr 1fr 1fr">
+  <div class="hotel-tag" style="background:#E1F5EE33;border-color:#9FE1CB;color:#085041">
+    <span class="hotel-dot" style="background:#1D9E75"></span>
+    <div>
+      <strong>Hotel Yaenomidori Tokyo</strong><br>
+      <span>5/18 check-in → 5/21 check-out　八丁堀駅 徒步 3 分</span>
+    </div>
+  </div>
+  <div class="hotel-tag" style="background:#EEEDFE33;border-color:#AFA9EC;color:#3C3489">
+    <span class="hotel-dot" style="background:#534AB7"></span>
+    <div>
+      <strong>Mitsui Garden Jingugaien Premier</strong><br>
+      <span>5/21 check-in → 5/23 check-out　国立競技場駅 徒步 1 分</span><br>
+      <span style="color:#534AB7;font-weight:500;font-size:11px">台幣 18,767　Bess 已刷卡</span>
+    </div>
+  </div>
+  <div class="hotel-tag" style="background:#FAECE733;border-color:#F0997B;color:#712B13">
+    <span class="hotel-dot" style="background:#993C1D"></span>
+    <div>
+      <strong>Daiwa Roynet Nishishinjuku Premier</strong><br>
+      <span>5/23 check-in → 5/25 check-out　西新宿駅 徒步 5 分</span>
+    </div>
+  </div>
+</div>
+
+<div class="days" id="days-container"></div>
+
+<div class="reminders">
+  <div class="reminders-title">迪士尼注意事項</div>
+  <div class="reminders-grid">
+    <div class="reminder-item">
+      <strong>迪士尼海洋門票（TDS）</strong>
+      <span>官網或 KKday/Klook，5/20 旺季盡早購買</span>
+    </div>
+    <div class="reminder-item" style="border-color:#FBEAF0;background:#FBEAF033">
+      <strong style="color:#993556">⚡ DPA 攻略（入園當天）</strong>
+      <span>兩人各自開 App 同時搶購：<br>① 翱翔：夢幻奇航 ¥2,000（最搶手）<br>② 安娜與艾莎的冰雪之旅 ¥2,000<br>③ 樂佩公主天燈盛會 ¥2,000<br>④ 小飛俠夢幻島歷險記 ¥2,000<br><a href="https://www.tokyodisneyresort.jp/tc/tdr/guide/app_service/disneypremieraccess.html" target="_blank" style="color:#993556">→ 官方 DPA 說明頁面</a></span>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Wu Pei-Tzu & Peichun Yeh</strong>　·　東京 2026 年 5 月　·　點擊各天展開詳細行程
+</div>
+
+<script>
+const C = {
+  blue: { dot: '#3B8BD4', bg: '#E6F1FB', text: '#0C447C' },
+  purple: { dot: '#534AB7', bg: '#EEEDFE', text: '#3C3489' },
+  pink: { dot: '#D4537E', bg: '#FBEAF0', text: '#72243E' },
+  red: { dot: '#993C1D', bg: '#FAECE7', text: '#712B13' },
+  amber: { dot: '#BA7517', bg: '#FAEEDA', text: '#633806' },
+  green: { dot: '#1D9E75', bg: '#E1F5EE', text: '#085041' },
+  olive: { dot: '#3B6D11', bg: '#EAF3DE', text: '#27500A' },
+  gray: { dot: '#888780', bg: '#F1EFE8', text: '#444441' },
+};
+
+const days = [
+  {
+    date: '5/18（一）', label: 'Day 1', hotel: 'Yaenomidori', color: C.blue,
+    title: '抵達・東京車站・銀座・有樂町',
+    spots: [
+      { time: '12:40', name: '成田機場入境', note: '領行李、辦 Suica、搭 N\'EX 入城約 55 分', dot: C.gray.dot },
+      { time: '14:30', name: 'Hotel Yaenomidori check-in', note: '八丁堀駅から徒步 3 分。屋上日本庭園・最上階フロントが特徴的な 4 星飯店', dot: '#1D9E75', mapUrl: 'https://maps.google.com/?q=Hotel+Yaenomidori+Tokyo+東京都中央区八丁堀' },
+      { time: '15:30', name: '東京車站丸之內', note: '飯店から步行約 12 分。紅磚站舍外觀、KITTE 百貨輕逛', dot: C.blue.dot, mapUrl: 'https://maps.google.com/?q=東京駅丸の内+東京都千代田区丸の内1' },
+      { time: '16:30', name: '有樂町 → 銀座一丁目移動', note: '有樂町高架下老街散步後步行至銀座一丁目，約 5 分。LaVASARA 就在 マロニエゲート銀座1 11F', dot: C.blue.dot, mapUrl: 'https://maps.google.com/?q=有楽町+東京都千代田区有楽町' },
+    ],
+    restaurants: [
+      { time: '17:00', name: 'LaVASARA CAFE&GRILL 銀座本店', note: 'マロニエゲート銀座1 11F，銀座一丁目駅 徒步 1 分。和風義大利料理', badge: '已訂位', badgeClass: 'res-booked', mapUrl: 'https://maps.google.com/?q=LaVASARA+Cafe+Grill+銀座本店+東京都中央区銀座2-2-14+マロニエゲート銀座1+11F' },
+    ],
+    tip: { text: 'Day 1 動線：飯店 → 東京車站 → 有樂町 → 銀座一丁目 LaVASARA，全程步行圈，不需要搭車', color: '#1D9E75' }
+  },
+  {
+    date: '5/19（二）', label: 'Day 2', hotel: 'Yaenomidori', color: C.purple,
+    title: '墨田北齋美術館・高輪 Gateway・MoN',
+    spots: [
+      { time: '09:30', name: '墨田北齋美術館', note: '早上人最少。葛飾北齋作品精選，建築設計本身也值得欣賞。票價 ¥400，停留約 1.5 小時', dot: C.purple.dot, mapUrl: 'https://maps.google.com/?q=すみだ北斎美術館+東京都墨田区亀沢2-7-2' },
+      { time: '13:00', name: '移動至高輪 Gateway', note: '搭 JR 山手線，約 30 分鐘', dot: C.gray.dot },
+      { time: '13:30', name: 'TAKANAWA GATEWAY CITY', note: 'Gateway Park「100色の道」裝置藝術、NEWoMan 高輪（約 200 店）', dot: C.purple.dot, mapUrl: 'https://maps.google.com/?q=TAKANAWA+GATEWAY+CITY+東京都港区高輪' },
+      { time: '15:00', name: 'MoN Takanawa 敘事博物館', note: '隈研吾設計螺旋造型建築，2026/3/28 剛開館。開幕展「ぐるぐる展」＋火之鳥 MANGALOGUE（部分需另訂票）', dot: C.purple.dot, mapUrl: 'https://maps.google.com/?q=MoN+Takanawa+東京都港区高輪' },
+    ],
+    restaurants: [
+      { time: '11:30', name: '和食 KARIYA', note: '北斎通り沿い半地下の隠れ家和食。豊洲直送鮮魚、日替わりメニュー。両国駅 徒步 5 分', badge: '現場候位', badgeClass: 'res-walkin', mapUrl: 'https://maps.google.com/?q=和食+KARIYA+東京都墨田区' },
+      { time: '20:00', name: 'TOOTH TOOTH BISTRO & CAFE 高輪ゲートウェイ', note: '高輪 Gateway City 內，神戸發カフェ&ビストロの東京旗艦店', badge: '已訂位', badgeClass: 'res-booked', mapUrl: 'https://maps.google.com/?q=TOOTH+TOOTH+BISTRO+CAFE+高輪ゲートウェイ' },
+    ],
+    tip: { text: 'MoN Takanawa 部分表演需另訂票，出發前至官網確認', color: C.purple.dot }
+  },
+  {
+    date: '5/20（三）', label: 'Day 3', hotel: 'Yaenomidori', color: C.pink,
+    title: '東京迪士尼海洋（TDS）',
+    spots: [
+      { time: '08:00', name: '提早出發・開園前抵達', note: '從八丁堀搭 JR 京葉線至舞濱，約 20 分鐘，比新宿近很多！建議 08:30 前到場', dot: C.pink.dot },
+      { time: '09:00', name: '開園！立刻搶購 DPA', note: '兩人分頭同時在 App 搶購：⭐ 翱翔：夢幻奇航（最搶手，¥2,000）、安娜與艾莎的冰雪之旅（¥2,000）、樂佩公主天燈盛會（¥2,000）、小飛俠夢幻島歷險記（¥2,000）', dot: C.pink.dot },
+      { time: '10:00', name: '遊樂設施衝刺', note: '週三平日人少。印第安納瓊斯、托伊斯多利亞、海底兩萬哩優先排隊', dot: C.pink.dot },
+      { time: '12:30', name: '午餐（避開正中午）', note: '11:00 或 13:30 用餐可避開排隊，善用 App 預約餐廳', dot: C.gray.dot },
+      { time: '14:00', name: '下午繼續遊園', note: '25 周年「スパークリング・ジュビリー」特別活動・フード＆ワインフェスティバル進行中（至 2027/3）', dot: C.pink.dot },
+      { time: '18:00', name: '夜間遊園・夜景', note: '傍晚後人潮稍退，TDS 的夜間景色和水上燈光是全年最美之一', dot: C.pink.dot },
+      { time: '21:00', name: '閉園・回飯店', note: 'JR 京葉線直達八丁堀附近，約 20 分鐘', dot: C.gray.dot },
+    ],
+    tip: { text: '⚡ DPA 攻略：進場後兩人分頭同時搶購，翱翔：夢幻奇航開園後最快售完，第一優先！各人各自在 App 購買，無法共用。', color: C.pink.dot }
+  },
+  {
+    date: '5/21（四）', label: 'Day 4', hotel: 'Mitsui', switchBefore: true, color: C.pink,
+    title: '原宿・表參道・青山',
+    spots: [
+      { time: '10:00', name: 'Yaenomidori 退房 → Mitsui Garden 寄放行李', note: '搭 JR 至千駄谷或都營大江戸線至国立競技場，約 20 分。check-in 15:00，先寄放行李輕裝出發', dot: C.gray.dot },
+      { time: '10:30', name: '原宿竹下通り', note: '可麗餅、棉花糖冰淇淋、潮流小物，早上人少最好逛', dot: C.pink.dot, mapUrl: 'https://maps.google.com/?q=竹下通り+東京都渋谷区神宮前1' },
+      { time: '12:00', name: '表參道建築散步', note: 'TOD\'S、PRADA、Louis Vuitton 建築師旗艦店一路走，免費建築展', dot: C.pink.dot, mapUrl: 'https://maps.google.com/?q=表参道+東京都渋谷区神宮前' },
+      { time: '16:00', name: '南青山散步', note: '根津美術館（日本古美術＋庭園，¥1,300）、骨董通り；晚餐 Ushigoro 就在附近，順路', dot: C.pink.dot, mapUrl: 'https://maps.google.com/?q=根津美術館+東京都港区南青山6-5-1' },
+      { time: '21:30', name: 'Mitsui Garden check-in', note: '晚餐後搭地鐵至国立競技場駅，徒步 1 分。夜間 check-in 沒有問題，前台 24 時間対応', dot: '#534AB7', mapUrl: 'https://maps.google.com/?q=三井ガーデンホテル神宮外苑東京プレミア+東京都新宿区霞ケ丘町' },
+    ],
+    restaurants: [
+      { time: '尚未確認', name: '午餐：待確認', note: '表參道・原宿エリア，確認後填入', badge: '待確認', badgeClass: 'res-pending', mapUrl: '' },
+      { time: '20:00', name: '燒肉 Ushigoro 表參道店', note: '黒毛和牛の炭火焼肉，表參道駅 B3 出口すぐ。南青山散步後步行即到', payment: '日幣 22,320 ／ 台幣 4,410　Bess 已刷卡', badge: '已訂位', badgeClass: 'res-booked', mapUrl: 'https://maps.google.com/?q=焼肉うしごろ表参道店+東京都港区南青山' },
+    ],
+    tip: { text: '動線：原宿 → 表參道 → 青山 → Ushigoro，由北往南一路走，完全不需要回頭', color: '#534AB7' }
+  },
+  {
+    date: '5/22（五）', label: 'Day 5', hotel: 'Mitsui', color: C.olive,
+    title: '代代木・UESHIMA MUSEUM・澀谷',
+    spots: [
+      { time: '09:30', name: '代代木公園', note: '從飯店步行約 15 分。五月份草木最翠綠，早上安靜舒服', dot: '#3B6D11', mapUrl: 'https://maps.google.com/?q=代々木公園+東京都渋谷区代々木神園町2-1' },
+      { time: '11:30', name: '移動至渋谷', note: '代代木公園 → 渋谷駅步行約 20 分，或搭一站', dot: C.gray.dot },
+      { time: '14:00', name: 'UESHIMA MUSEUM', note: '14:00 已預約。長谷川祐子策展＋James Turrell 常設光裝置，全館可拍照，票價 ¥600。渋谷駅步行約 10 分', payment: '日幣 6,000 ／ 台幣 1,185　Bess 已刷卡', dot: C.purple.dot, mapUrl: 'https://maps.google.com/?q=UESHIMA+MUSEUM+東京都渋谷区千駄ヶ谷' },
+      { time: '15:30', name: 'Cat Street 散步', note: 'UESHIMA 步行即到，裏原宿風格選品店，比竹下通更有質感', dot: '#3B6D11', mapUrl: 'https://maps.google.com/?q=キャットストリート+東京都渋谷区神宮前' },
+      { time: '17:00', name: '澀谷 SCRAMBLE 交叉口', note: '忠犬八公、SCRAMBLE 打卡；Hikarie、MAGNET 屋頂免費展望', dot: '#3B6D11', mapUrl: 'https://maps.google.com/?q=渋谷スクランブル交差点+東京都渋谷区道玄坂2' },
+      { time: '18:00', name: '澀谷採購', note: 'LOFT、東急百貨、澀谷 PARCO；週五營業到晚上最划算', dot: '#3B6D11', mapUrl: 'https://maps.google.com/?q=渋谷PARCO+東京都渋谷区宇田川町15-1' },
+    ],
+    restaurants: [
+      { time: '早午餐', name: 'Mitsui Garden Hotel Jingugaien 飯店餐廳', note: '飯店內用餐，提早購買餐券', badge: '飯店餐券', badgeClass: 'res-hotel', mapUrl: 'https://maps.google.com/?q=三井ガーデンホテル神宮外苑東京プレミア' },
+      { time: '晚餐', name: '澀谷 極味屋 漢堡排', note: '澀谷エリア，道産牛100%の絶品ハンバーグ', badge: '現場候位', badgeClass: 'res-walkin', mapUrl: 'https://maps.google.com/?q=極味屋+渋谷' },
+    ],
+    tip: { text: 'UESHIMA 14:00 已預約，上午代代木公園後可在渋谷附近午餐，時間剛好', color: '#3B6D11' }
+  },
+  {
+    date: '5/23（六）', label: 'Day 6', hotel: 'Daiwa', switchBefore: true, color: C.red,
+    title: '立川 PLAY! MUSEUM・新宿',
+    spots: [
+      { time: '08:00', name: 'Mitsui Garden 退房 → Daiwa Roynet 寄放行李', note: '一大早退房，先搭都營大江戸線至西新宿，Daiwa Roynet 寄放行李後再出發，約多 30 分鐘', dot: C.gray.dot },
+      { time: '09:00', name: '立川出發', note: '西新宿 → 新宿駅搭 JR 中央特快至立川駅，約 25 分', dot: C.gray.dot },
+      { time: '10:00', name: 'PLAY! MUSEUM（一開館）', note: '立川駅北口 GREEN SPRINGS W3 2F，徒步約 10 分。5/23 展覽：「安西水丸展 ぼくのあそび I DRAW TO PLAY」（5/20 開幕），土日開館 10:00–18:00。票價大人 ¥1,500', dot: '#534AB7', mapUrl: 'https://maps.google.com/?q=PLAY!+MUSEUM+東京都立川市緑町3-1+GREEN+SPRINGS+W3' },
+      { time: '12:00', name: '立川 GREEN SPRINGS 午餐：French Toast Factory', note: 'PLAY! MUSEUM 附近，GREEN SPRINGS 園區內', dot: C.gray.dot, mapUrl: 'https://maps.app.goo.gl/LHhQq4XdfqUuGAW68' },
+      { time: '13:30', name: '立川 → 新宿移動', note: 'JR 中央特快，約 25 分。抵達後至 Daiwa Roynet 寄放或 check-in（15:00 起）', dot: C.gray.dot },
+      { time: '15:00', name: 'Daiwa Roynet check-in（15:00 起）', note: '西新宿駅 徒步 5 分，鄰近新宿住友大樓', dot: '#993C1D' },
+      { time: '15:30', name: '新宿逛街', note: '伊勢丹、DONKI、新宿高島屋、LUMINE；或西新宿ヨドバシカメラ電器街', dot: C.red.dot },
+    ],
+    restaurants: [
+      { time: '早午餐', name: 'Sarabeth\'s LUMINE 2 Shinjuku Branch', note: 'NYのブランチの名店，新宿ルミネ2内。出發前先去或回新宿後再去', badge: '現場候位', badgeClass: 'res-walkin', mapUrl: 'https://maps.google.com/?q=Sarabeth\'s+新宿+ルミネ2' },
+      { time: '20:00', name: '伊吹壽喜燒', note: '新宿エリア，黒毛和牛すき焼き', badge: '已訂位', badgeClass: 'res-booked', mapUrl: 'https://maps.google.com/?q=伊吹+すき焼き+新宿' },
+    ],
+    tip: { text: 'Sarabeth\'s 若人多可先去立川，回新宿後再排；PLAY! MUSEUM 土日票建議事先預約，免得現場售完', color: C.red.dot }
+  },
+  {
+    date: '5/24（日）', label: 'Day 7', hotel: 'Daiwa', color: C.amber,
+    title: '下北澤・吉祥寺',
+    spots: [
+      { time: '12:00', name: '下北澤', note: '新宿駅搭小田急線，約 10 分。古著店、黑膠唱片行、小劇場，飯後隨意逛逛', dot: C.amber.dot, mapUrl: 'https://maps.google.com/?q=下北沢+東京都世田谷区北沢' },
+      { time: '15:00', name: '吉祥寺・井之頭公園', note: '下北沢搭小田急線至吉祥寺，約 15 分。划船（¥700/30 分）、公園散步，五月份草木最翠綠', dot: C.amber.dot, mapUrl: 'https://maps.google.com/?q=井の頭恩賜公園+東京都武蔵野市御殿山1-18-31' },
+      { time: '16:30', name: '吉祥寺商店街', note: 'メンチカツ邊走邊吃，藤屋最有名；PARCO、ロンロン採購', dot: C.amber.dot, mapUrl: 'https://maps.google.com/?q=吉祥寺サンロード商店街+東京都武蔵野市吉祥寺本町1' },
+      { time: '21:00', name: '晚餐後繼續待在吉祥寺', note: '吉祥寺夜晚バー・カフェも充実，最後一個完整夜晚好好享受', dot: C.amber.dot },
+    ],
+    restaurants: [
+      { time: '12:00', name: '無添加薬膳スープカレー COSMOS', note: '下北沢駅南西口 徒步 3 分。20 種野菜の薬膳スープカレー，完全無添加手作り。辛さ 1～6 辛可選，2 辛（空）為中辛', badge: '現場候位', badgeClass: 'res-walkin', mapUrl: 'https://maps.google.com/?q=無添加薬膳スープカレーCOSMOS+東京都世田谷区北沢2-1-8' },
+      { time: '晚餐', name: '名代とんかつ かつくら 東急百貨店吉祥寺店', note: '吉祥寺東急百貨店内，京都発の高級とんかつ', badge: '現場候位', badgeClass: 'res-walkin', mapUrl: 'https://maps.google.com/?q=かつくら+吉祥寺+東急百貨店' },
+    ],
+    tip: { text: 'COSMOS 開門 12:00，剛好午餐後在下北澤逛逛再移動吉祥寺。晚餐後繼續留在當地', color: C.amber.dot }
+  },
+  {
+    date: '5/25（一）', label: 'Day 8', hotel: 'Daiwa', color: C.gray,
+    title: '返程日',
+    spots: [
+      { time: '07:30', name: 'Daiwa Roynet 退房', note: '輕裝出門，重行李已宅配至成田機場', dot: C.gray.dot },
+      { time: '08:00', name: '早餐：便利商店或咖啡廳', note: '7-11、PRONTO，輕鬆解決', dot: C.gray.dot },
+      { time: '09:00', name: '前往成田機場 Terminal 2', note: '西新宿 → 搭 JR 新宿駅轉 N\'EX 約 60 分；或都營大江戸線至上野御徒町轉京成スカイライナー', dot: C.gray.dot },
+      { time: '10:00', name: '免稅區最後掃貨', note: '成田 T2 免稅店齊全，預留 ¥3,000 日幣現金備用', dot: C.blue.dot },
+      { time: '11:50', name: 'IT281 起飛', note: '成田 → 高雄，約 3 小時 10 分，15:00 抵達', dot: C.blue.dot },
+    ],
+    tip: { text: '成田 T2 建議 10:00 前抵達。從西新宿出發：都營大江戸線至上野御徒町轉京成スカイライナー；或 JR 新宿駅轉 N\'EX，約 60 分', color: C.gray.dot }
+  }
+];
+
+const container = document.getElementById('days-container');
+
+days.forEach((day, i) => {
+  // Hotel switch banner
+  if (day.switchBefore) {
+    const sw = document.createElement('div');
+    sw.className = 'hotel-switch';
+    if (day.hotel === 'Mitsui') {
+      sw.style.cssText = 'background:#EEEDFE33;border-color:#AFA9EC;color:#3C3489';
+      sw.innerHTML = `<span class="hotel-dot" style="background:#534AB7"></span>
+        <strong>Mitsui Garden Hotel Jingugaien Tokyo Premier</strong>&nbsp;
+        <span style="color:var(--text-muted);font-size:11px">5/21 check-in → 5/23 check-out&nbsp;&nbsp;国立競技場駅 徒步 1 分</span>`;
+    } else {
+      sw.style.cssText = 'background:#FAECE733;border-color:#F0997B;color:#712B13';
+      sw.innerHTML = `<span class="hotel-dot" style="background:#993C1D"></span>
+        <strong>Daiwa Roynet Hotel Nishishinjuku PREMIER</strong>&nbsp;
+        <span style="color:var(--text-muted);font-size:11px">5/23 check-in → 5/25 check-out&nbsp;&nbsp;西新宿駅 徒步 5 分</span>`;
+    }
+    container.appendChild(sw);
+  }
+
+  const card = document.createElement('div');
+  card.className = 'day-card';
+
+  const hotelBg = day.hotel === 'Yaenomidori' ? '#E1F5EE' : day.hotel === 'Mitsui' ? '#EEEDFE' : '#FAECE7';
+  const hotelColor = day.hotel === 'Yaenomidori' ? '#085041' : day.hotel === 'Mitsui' ? '#3C3489' : '#712B13';
+  const hotelLabel = day.hotel === 'Yaenomidori' ? 'Yaenomidori' : day.hotel === 'Mitsui' ? 'Mitsui Garden' : 'Daiwa Roynet';
+
+  card.innerHTML = `
+    <div class="day-header" onclick="toggle(${i})">
+      <div class="day-accent" style="background:${day.color.dot}"></div>
+      <div class="day-meta">
+        <div class="day-date">${day.date}</div>
+        <div class="day-title">${day.title}</div>
+      </div>
+      <div class="day-badges">
+        <span class="badge" style="background:${day.color.bg};color:${day.color.text}">${day.label}</span>
+        <span class="badge" style="background:${hotelBg};color:${hotelColor}">${hotelLabel}</span>
+      </div>
+      <div class="chevron" id="ch-${i}">›</div>
+    </div>
+    <div class="day-body" id="body-${i}">
+      <div class="spots">
+        ${(day.spots || []).map(s => `
+          <div class="spot">
+            <div class="spot-indicator">
+              <div class="spot-dot" style="background:${s.dot}"></div>
+              <div class="spot-time">${s.time}</div>
+            </div>
+            <div class="spot-content">
+              <div class="spot-name">
+                ${s.name}
+                ${s.mapUrl ? `<a href="${s.mapUrl}" target="_blank" style="color:#185FA5;text-decoration:none;font-size:11px;font-weight:400;margin-left:4px">📍 地圖</a>` : ''}
+              </div>
+              <div class="spot-note">${s.note}</div>
+              ${s.payment ? `<div class="restaurant-payment">${s.payment}</div>` : ''}
+            </div>
+          </div>
+        `).join('')}
+        ${(day.restaurants || []).map(r => `
+          <div class="restaurant">
+            <div class="restaurant-indicator">
+              <div class="restaurant-icon">🍽</div>
+              <div class="restaurant-time">${r.time}</div>
+            </div>
+            <div class="restaurant-content">
+              <div class="restaurant-name">
+                ${r.name}
+                ${r.mapUrl ? `<a href="${r.mapUrl}" target="_blank">📍 地圖</a>` : ''}
+                <span class="res-badge ${r.badgeClass}">${r.badge}</span>
+              </div>
+              <div class="restaurant-note">${r.note}</div>
+              ${r.payment ? `<div class="restaurant-payment">${r.payment}</div>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      ${day.tip ? `<div class="tip" style="border-color:${day.tip.color}">${day.tip.text}</div>` : ''}
+    </div>
+  `;
+  container.appendChild(card);
+});
+
+// Open Day 1 by default
+document.getElementById('body-0').classList.add('open');
+document.getElementById('ch-0').classList.add('open');
+
+function toggle(i) {
+  const body = document.getElementById(`body-${i}`);
+  const ch = document.getElementById(`ch-${i}`);
+  const isOpen = body.classList.toggle('open');
+  ch.classList.toggle('open', isOpen);
+}
+</script>
+</body>
+</html>
